@@ -20,7 +20,7 @@ For more information see the [Backplane server readme](https://github.com/janrai
 
 Example:
 =======
-'''ruby
+```ruby
 require 'backplane2'
 
 credentials = UserCredentials.new('https://backplane1.janrainbackplane.com', 'client id', 'secret') 
@@ -34,7 +34,7 @@ client = Backplane::Client.new('https://backplane1.janrainbackplane.com')
 message =  Backplane::Message.new('mybusname', scopes['channel'], 'test', 'payload')
 client.postMessage(message, token)
 
-'''
+```
 
 Notes
 =====
