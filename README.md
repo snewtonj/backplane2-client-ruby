@@ -6,6 +6,10 @@ This library integrates server side Backplane clients with the Backplane server 
 Installation
 ============
 
+```
+gem install backplane2-client-ruby
+```
+
 
 Usage
 =====
@@ -21,18 +25,21 @@ For more information see the [Backplane server readme](https://github.com/janrai
 Example:
 =======
 ```ruby
+require 'json'
 require 'backplane2'
 
-credentials = UserCredentials.new('https://backplane1.janrainbackplane.com', 'client id', 'secret') 
+credentials = Backplane::UserCredentials.new('https://backplane1.janrainbackplane.com', 'client id', 'secret') 
 
 tokenReq = Backplane::TokenRequest.new(credentials)
-tokenResponse = req.getRegularToken('busname')
+tokenResponse = tokenReq.getToken('client_credentials', 'bus:mybusname')
 token = Backplane::AccessToken.new(JSON.parse(tokenResponse))
 
 client = Backplane::Client.new('https://backplane1.janrainbackplane.com')
 
-message =  Backplane::Message.new('mybusname', scopes['channel'], 'test', 'payload')
+message =  Backplane::Message.new('mybusname', channel', 'test', 'payload')
 client.postMessage(message, token)
+
+client.getMessages(token)
 
 ```
 

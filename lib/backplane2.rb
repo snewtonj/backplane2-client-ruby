@@ -1,4 +1,5 @@
 require 'client2'
+require 'credential'
 require 'message2'
 require 'token'
 require 'token_request'
