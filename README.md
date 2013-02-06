@@ -28,19 +28,24 @@ Example:
 require 'json'
 require 'backplane2'
 
-credentials = Backplane::UserCredentials.new('https://backplane1.janrainbackplane.com', 'client id', 'secret') 
+credentials = Backplane::UserCredentials.new('https://backplane1.janrainbackplane.com', 'client_id', 'secret') 
 
 tokenReq = Backplane::TokenRequest.new(credentials)
+
 tokenResponse = tokenReq.getToken('client_credentials', 'bus:mybusname')
-token = Backplane::AccessToken.new(JSON.parse(tokenResponse))
+authToken = Backplane::AccessToken.new(JSON.parse(tokenResponse))
+
+tokenResponse = tokenReq.getRegularToken('mybusname')
+regularToken = Backplane::AccessToken.new(JSON.parse(tokenResponse))
+scopes = regularToken.scopes
 
 client = Backplane::Client.new('https://backplane1.janrainbackplane.com')
 
-message =  Backplane::Message.new('mybusname', channel', 'test', 'payload')
-client.postMessage(message, token)
+message =  Backplane::Message.new('mybusname', scopes['channel'], 'test', 'payload')
+client.postMessage(message, authToken)
 
-client.getMessages(token)
-
+messages =  client.getMessages(authToken)
+jj JSON.parse(messages)
 ```
 
 Notes
