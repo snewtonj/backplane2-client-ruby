@@ -35,6 +35,9 @@ tokenReq = Backplane::TokenRequest.new(credentials)
 tokenResponse = tokenReq.getToken('client_credentials', 'bus:mybusname')
 authToken = Backplane::AccessToken.new(JSON.parse(tokenResponse))
 
+# here we get a channel id using an anonymous token, just for demonstration purposes
+# in production deployments the widget in the user's browser would get the channel name and pass it back
+# to its server-side component, so the server code would never need to request an anonymous token or channel.
 tokenResponse = tokenReq.getRegularToken('mybusname')
 regularToken = Backplane::AccessToken.new(JSON.parse(tokenResponse))
 scopes = regularToken.scopes
