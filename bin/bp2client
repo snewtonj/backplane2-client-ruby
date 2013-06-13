@@ -42,9 +42,9 @@ class TokenManager
   def loadRegularToken()
     token = readToken("regular_token.json")
     if (token.nil?)
-      user = UserCredentials.new(@config[:host], @config[:userid], @config[:password]) 
+      user = Backplane::UserCredentials.new(@config[:host], @config[:userid], @config[:password]) 
       req = Backplane::TokenRequest.new(user)
-      token = Backplane::AccessToken.new(JSON.parse(req.getRegularToken(@config[:busname])))
+      token = req.getRegularToken(@config[:busname])
       writeToken(token, "regular_token.json")
     end
     token
@@ -53,9 +53,9 @@ class TokenManager
   def loadAuthenticatedToken()
     token = readToken("token.json")
     if (token.nil?)
-      user = UserCredentials.new(@config[:host], @config[:userid], @config[:password]) 
+      user = Backplane::UserCredentials.new(@config[:host], @config[:userid], @config[:password]) 
       req = Backplane::TokenRequest.new(user)
-      token = Backplane::AccessToken.new(JSON.parse(req.getToken('client_credentials', "bus:#{@config[:busname]}")))
+      token = req.getToken('client_credentials', "bus:#{@config[:busname]}")
       writeToken(token, "token.json")
     end
     token
