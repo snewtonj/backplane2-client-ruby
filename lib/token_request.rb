@@ -20,7 +20,7 @@ class TokenRequest
     response = http.start {|http| http.request(req) }
     # puts "getToken response #{response.code} #{response.message}: #{response.body}"
     @response_code = response.code
-    response.body
+    AccessToken.new(JSON.parse(response.body))
    end
 
    def getRegularToken(bus)
@@ -34,7 +34,7 @@ class TokenRequest
     # puts "getRegularToken response #{response.code} #{response.message}: #{response.body}"
     @response_code = response.code
     # trim off my callback
-    response.body[2..-3]
+    AccessToken.new(JSON.parse(response.body[2..-3]))
    end
 end
 end

@@ -28,9 +28,7 @@ class TestTokenRequest < Test::Unit::TestCase
     stub_request(:post, "https://#{@user.user}:#{@user.password}@#{@user.hostname}/v2/token").
       with(:body => {"scope"=>"bus:steven-dev", "grant_type"=>"client_credentials"}).
       to_return(:status => 200, :body => return_body)
-    response = @req.getToken('client_credentials', 'bus:steven-dev')
-    assert_equal(return_body, response)
-    token = Backplane::AccessToken.new(JSON.parse(response))
+    token = @req.getToken('client_credentials', 'bus:steven-dev')
     assert_equal("Bearer", token.token_type)
     assert_equal(scope, token.scope)
     scopes = token.scopes
@@ -56,7 +54,7 @@ class TestTokenRequest < Test::Unit::TestCase
 
     stub_request(:get, "https://testhost.janrain.com/v2/token?bus=steven-dev-bus.janrain.com&callback=f").to_return(:status => 200, :body => return_body, :headers => {})
 
-    reg_token = Backplane::AccessToken.new(JSON.parse(@req.getRegularToken('steven-dev-bus.janrain.com')))
+    reg_token = @req.getRegularToken('steven-dev-bus.janrain.com')
 
     assert_equal("Bearer", reg_token.token_type)
     assert_equal(scope,reg_token.scope)

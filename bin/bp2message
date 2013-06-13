@@ -1,6 +1,5 @@
 #!/usr/bin/ruby
 require 'backplane2'
-require 'expayload'
 require 'fileutils'
 require 'optparse'
 require 'pp'

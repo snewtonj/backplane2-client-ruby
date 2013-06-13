@@ -2,6 +2,7 @@
 require 'backplane2'
 require 'expayload'
 require 'fileutils'
+require 'json'
 require 'optparse'
 require 'pp'
 require 'credential'
